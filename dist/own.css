@@ -1,0 +1,151 @@
+:root {
+    --primary-color: #42affa;
+    --secondary-color: #f92672;
+    --green-color: #00B050;
+    --ng-red-color: #DD0031;
+    --r-heading-text-transform: none;
+}
+
+div.reveal {
+    position: relative;
+}
+
+section#angular-logo {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+section#angular-logo svg {
+    height: 4rem;
+}
+
+.reveal section .no-border {
+    border: 0;
+}
+
+.reveal section .no-margin {
+    margin: 0;
+}
+
+.reveal section .no-background {
+    background: none;
+    box-shadow: none;
+}
+
+.reveal section ul.no-margin-nor-bullet-points {
+    margin: 0;
+    list-style: none;
+}
+
+.reveal section .no-text-transform {
+    text-transform: none;
+}
+
+.reveal .ng-red-color {
+    color: var(--ng-red-color);
+}
+
+.reveal .primary-color {
+    color: var(--primary-color);
+}
+
+.reveal .secondary-color {
+    color: var(--secondary-color);
+}
+
+.reveal .green-color {
+    color: var(--green-color);
+}
+
+section#designStamina > div, section#hexArchitecture > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section#designStaminaKeyTakeaways > .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+section#layeredArchitecture > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section#layeredArchitecture > div > a {
+    width: 300px;
+}
+
+section#hexArchitecture div.galileo-einstein {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 32px;
+}
+
+section#hexArchitecture div.galileo-einstein img {
+    border: 2px solid white;
+    margin: 0 15px;
+}
+
+section#hexArchitecture div.attribution {
+    margin-top: 32px;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+section#sustainability p {
+    color: var(--green-color);
+    font-weight: bold;
+}
+
+section#sustainability .lds-hourglass {
+    display: inline-block;
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+section#sustainability .lds-hourglass:after {
+    content: " ";
+    display: block;
+    border-radius: 50%;
+    width: 0;
+    height: 0;
+    margin: 8px;
+    box-sizing: border-box;
+    border: 72px solid var(--green-color);
+    border-color: var(--green-color) transparent var(--green-color) transparent;
+    animation: lds-hourglass 1.2s infinite;
+}
+
+section#end > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+@keyframes lds-hourglass {
+    0% {
+        transform: rotate(0);
+        animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    50% {
+        transform: rotate(900deg);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    100% {
+        transform: rotate(1800deg);
+    }
+}

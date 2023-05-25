@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Angular 16: Breakthrough or not?</title>
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="dist/own.css">
+	<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+			<h1 class="ng-red-color">Angular 16</h1>
+			<h2>Breakthrough or not?</h2>
+		</section>
+		<section>
+			<h3>(...) we’re continuing the Angular Momentum with <span class="ng-red-color">the&nbsp;biggest&nbsp;release</span> since the initial rollout of Angular</h3>
+			<small><a href="https://blog.angular.io/angular-v16-is-here-4d7a28ec680d" target="_blank">Minko&nbsp;Gechev.&nbsp;Angular Blog</a></small></h3>
+		</section>
+		<section>
+			<h3>Let's implement a <a class="ng-red-color" href="https://github.com/ng16-breakthrough/book-app-ng16/tree/00-start" target="_blank">sample&nbsp;Angular&nbsp;15&nbsp;application</a> having typical search, overview and detail dialogs and then improve it with <a class="ng-red-color" href="https://github.com/ng16-breakthrough/book-app-ng16/tree/01-ng16-minor-changes" target="_blank">some minor</a> and <a class="ng-red-color" href="https://github.com/ng16-breakthrough/book-app-ng16/tree/02-ng16-signals" target="_blank">major</a> Angular 16 features</h3>
+		</section>
+		<section>
+			<h3>Search and overview</h3>
+			<object height="450" data="assets/book-overview-dialog.svg"></object>
+		</section>
+		<section>
+			<h3>Details</h3>
+			<object height="450" data="assets/book-details-dialog.svg"></object>
+		</section>
+		<section>
+			<h3>The <a class="ng-red-color" href="https://github.com/ng16-breakthrough/book-app-ng16/tree/00-start" target="_blank">sample&nbsp;Angular&nbsp;15&nbsp;app</a> has a bunch of interesting features:</h3>
+			<ul>
+				<li>Graduated <a class="ng-red-color" href="https://angular.io/guide/standalone-components" target="_blank">Standalone API</a></li>
+				<li>Router's <a class="ng-red-color" href="https://angular.io/api/router/ResolveFn" target="_blank">Functional Resolvers</a></li>
+				<li>Router <a class="ng-red-color" href="https://angular.io/guide/standalone-components#lazy-loading-and-default-exports" target="_blank">unwraps default imports</a></li>
+				<li><a class="ng-red-color" href="https://angular.io/api/core/testing/TestBed#runininjectioncontext" target="_blank"><code>TestBed.runInInjectionContext()</code></a></li>
+				<li><a class="ng-red-color" href="https://angular.io/guide/testing-components-scenarios#routing-component" target="_blank"><code>RouterTestingHarness</code></a></li>
+			</ul>
+		</section>
+		<section>
+			<h3>Some of the new Angular 16 features:</h3>
+			<ul>
+				<li><span class="ng-red-color">CLI tooling</span> for Standalone API: <pre data-id="code-animation"><code class="bash">ng generate component MyButton --standalone</code></pre></li>
+				<li><a class="ng-red-color" href="https://angular.io/api/core/Input#required" target="_blank">Required <code>@Input</code>s</a></li>
+				<li><a class="ng-red-color" href="https://angular.io/guide/router#getting-route-information" target="_blank">Passing router data as <code>@Input</code>s</a></li>
+				<li><a class="ng-red-color" href="https://angular.io/api/core/DestroyRef#ondestroy" target="_blank"><code>DestroyRef</code></a> and <a class="ng-red-color" href="https://angular.io/api/core/rxjs-interop/takeUntilDestroyed" target="_blank"><code>takeUntilDestroyed()</code></a></li>
+				<li>Self-closing tags: <pre><code class="html">&lt;my-element [value]="'test'" /&gt;</code></pre></li>
+			</ul>
+		</section>
+		<section>
+			<h2>But the game-changer is a new <a class="ng-red-color" href="https://github.com/angular/angular/discussions/49685" target="_blank">reactivity model</a> based on <a class="ng-red-color" href="https://angular.io/guide/signals#what-are-signals" target="_blank">signals🚦</a></h2>
+		</section>
+		<section>
+			<h3>Why yet another reactivity model?</h3>
+			<ul>
+				<li>The current, <code>zone.js</code> based, <span class="ng-red-color">change detection is not "fine-grained"</span>: it knows <span class="ng-red-color">when</span>, but doesn't know <span class="ng-red-color">where</span> a change occurred.</li>
+				<li>Thus, Angular must check <span class="ng-red-color">the entire component tree</span>, unless a component was <span class="ng-red-color">configured as OnPush</span>...</li>
+				<li>If, during traversing the component tree, the model <span class="ng-red-color">changes more than once</span>, we'll get the "popular" <span class="ng-red-color">ExpressionChangedAfterItHasBeenChecked</span> error.</li>
+			</ul>
+		</section>
+		<section>
+			<h3>But... the current change detection is not that bad and has its advantages</h3>
+			<object height="400" data="assets/component-tree.svg"></object>
+		</section>
+		<section>
+			<h3>Signals🚦 to the rescue?</h3>
+			<ul>
+				<li>Signals in <a class="ng-red-color" href="https://en.wikipedia.org/wiki/Functional_reactive_programming" target="_blank">Functional Reactive Programming</a> (also called behaviors) are used to model <span class="ng-red-color">values that change over time</span>.</li>
+				<li>The signal's current value can be <span class="ng-red-color">accessed synchronously</span> at any time.</li>
+				<li>Thus, templates referencing signals can be <span class="ng-red-color">rendered at any time</span>.</li>
+				<li>Also, signals <span class="ng-red-color">can notify on their changes (effects)</span>, thus Angular can track <span class="ng-red-color">which template should be re-rendered</span>.</li>
+			</ul>
+		</section>
+		<section>
+			<h3>Is <a  class="ng-red-color" href="https://rxjs.dev/" target="_blank">RxJS</a> not good enough?</h3>
+			<ul>
+				<li>RxJS is good at modelling <span class="ng-red-color">event streams</span> in <a class="ng-red-color" href="https://en.wikipedia.org/wiki/Functional_reactive_programming" target="_blank">FRP</a>. Comparing to signals, event streams <span class="ng-red-color">don't have a current value</span>: you cannot ask what is the current click event?😄</li>
+				<li>RxJS observables might be <span class="ng-red-color">synchronous or asynchronous</span><./li>
+				<li>RxJS has a <code class="ng-red-color">BehaviorSubject</code> which is close to signals, but still... <span class="ng-red-color">subjects are observables</span>.</li>
+			</ul>
+		</section>
+    </div>
+	<section id="angular-logo">
+		<svg viewBox="0 0 250 250" style="enable-background:new 0 0 250 250;" xml:space="preserve">
+			<style type="text/css">
+	.st0{fill:#DD0031;}
+	.st1{fill:#C3002F;}
+	.st2{fill:#FFFFFF;}
+			</style>
+			<g>
+				<polygon class="st0" points="125,30 125,30 125,30 31.9,63.2 46.1,186.3 125,230 125,230 125,230 203.9,186.3 218.1,63.2 	"/>
+				<polygon class="st1" points="125,30 125,52.2 125,52.1 125,153.4 125,153.4 125,230 125,230 203.9,186.3 218.1,63.2 125,30 	"/>
+				<path class="st2" d="M125,52.1L66.8,182.6h0h21.7h0l11.7-29.2h49.4l11.7,29.2h0h21.7h0L125,52.1L125,52.1L125,52.1L125,52.1 L125,52.1z M142,135.4H108l17-40.9L142,135.4z"/>
+			</g>
+		</svg>
+	</section>
+</div>
+
+<script src="dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script>
+    // More info about initialization & config:
+    // - https://revealjs.com/initialization/
+    // - https://revealjs.com/config/
+    Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+    });
+</script>
+</body>
+</html>
